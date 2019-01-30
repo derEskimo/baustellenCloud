@@ -58,5 +58,10 @@ Dein Passwort:<br>
 
 <input type="submit" value="Abschicken">
 </form>
+
+<form action="register.php">
+    <input type="submit" value="Registrieren" />
+</form>
+
 </body>
 </html>
