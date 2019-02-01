@@ -64,8 +64,11 @@ $userid = $_SESSION['userid'];
 
 <right>
     <menue>
+        <form>
+            <button><img src="media/settings.svg"/></button>
+        </form>
         <form action="logout.php" method="post">
-            <input type="submit" name="logout" value="Ausloggen" />
+            <button><img src="media/logout.svg"/></button>
         </form>
     </menue>
 

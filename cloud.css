@@ -29,7 +29,10 @@ right{
 menue {
     height: 5vh;
     background-color: #666;
-    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 5px;
 }
 
 /* Style the content */
