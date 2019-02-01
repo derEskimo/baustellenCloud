@@ -1,3 +1,13 @@
+<?php
+session_start();
+if(!isset($_SESSION['userid'])) {
+    die('Bitte zuerst <a href="login.php">einloggen</a>');
+}
+
+//Abfrage der Nutzer ID vom Login
+$userid = $_SESSION['userid'];
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -11,7 +21,8 @@
 
 <left>
     <img src="media/Profilbild.png" style="width: 8vw"/>
-    <div>Hallo User xyz</div>
+    <div>Hallo User <?php echo $userid; ?></div>
+
     <div class="baustellenSelect">
         <select size="100">
                 <option>Baustelle 1</option>
@@ -53,7 +64,9 @@
 
 <right>
     <menue>
-        <h2>Cities</h2>
+        <form action="logout.php" method="post">
+            <input type="submit" name="logout" value="Ausloggen" />
+        </form>
     </menue>
 
     <content>
