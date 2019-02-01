@@ -49,7 +49,7 @@ if (isset($_GET['login'])) {
     }
 
     form {
-        background: rgba(244, 183, 13, 0.3);
+        background: rgba(244, 183, 13, 0.92);
         padding: 50px;
         border-radius: 10px;
     }
