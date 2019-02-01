@@ -64,6 +64,9 @@ $userid = $_SESSION['userid'];
 
 <right>
     <menue>
+        <form action="info.php" method="post">
+            <button><img src="media/info.svg"/></button>
+        </form>
         <form>
             <button><img src="media/settings.svg"/></button>
         </form>
