@@ -63,7 +63,7 @@ if (isset($_GET['login'])) {
 <body>
 
 <div>
-    <img src="baustelle.png" style="height: 300px">
+    <img src="media/baustelle.png" style="height: 300px">
 </div>
 <div>
     <h1 style="color: #e41408;">baustellenCloud</h1>
