@@ -10,6 +10,7 @@
 <body>
 
 <left>
+    <img src="media/Profilbild.png" style="width: 8vw"/>
     <div class="baustellenSelect">
         <select size="100">
                 <option>Baustelle 1</option>

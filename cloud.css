@@ -15,7 +15,8 @@ body {
 left {
     width: 16vw;
     background: #ccc;
-    padding: 20px;
+    padding: 5px;
+    text-align: center;
 }
 
 right{
@@ -42,6 +43,5 @@ content {
 
 .baustellenSelect{
     height: 50vh;
-    width: 14vw;
     overflow: scroll;
 }
