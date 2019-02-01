@@ -59,3 +59,14 @@ content {
     background-color: rgba(244, 183, 13, 0.92);
     border: none;
 }
+
+.addShare{
+    position: absolute;
+    bottom: 7vh;
+    right: 9vw;
+    height: 60px;
+    width: 60px;
+    border-radius: 15px;
+    background-color: rgba(244, 183, 13, 0.92);
+    border: none;
+}
