@@ -11,6 +11,7 @@
 
 <left>
     <img src="media/Profilbild.png" style="width: 8vw"/>
+    <div>Hallo User xyz</div>
     <div class="baustellenSelect">
         <select size="100">
                 <option>Baustelle 1</option>
