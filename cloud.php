@@ -24,8 +24,8 @@ $userid = $_SESSION['userid'];
     <div>Hallo User <?php echo $userid; ?></div>
 
     <div class="baustellenSelect">
-        <select size="100">
-                <option>Baustelle 1</option>
+        <select size="40">
+                <option>Baustelle 1Hallo</option>
                 <option>Baustelle 2</option>
                 <option>Baustelle 3</option>
                 <option>Baustelle 1</option>
@@ -57,7 +57,7 @@ $userid = $_SESSION['userid'];
                 <option>Baustelle 3</option>
                 <option>Baustelle 1</option>
                 <option>Baustelle 2</option>
-                <option>Baustelle 3</option>
+                <option>Baustelle 3Ende</option>
             </select>
     </div>
 </left>
