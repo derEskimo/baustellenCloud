@@ -70,6 +70,14 @@ if(isset($_GET['register'])) {
         $Message = 'Bitte eine gültige E-Mail-Adresse eingeben';
         $error = true;
     }
+    elseif(strlen($passwort) == 0) {
+        $error = true;
+        $Message = 'Bitte ein Passwort angeben';
+    }
+    elseif($passwort != $passwort2) {
+        $error = true;
+        $Message = 'Die Passwörter müssen übereinstimmen';
+    }
     //Überprüfe, dass die E-Mail-Adresse noch nicht registriert wurde
     elseif(!$error){
         $statement = $pdo->prepare("SELECT * FROM users WHERE email = :email");
@@ -81,15 +89,6 @@ if(isset($_GET['register'])) {
             $error = true;
         }
     }
-    elseif(strlen($passwort) == 0) {
-        $Message = 'Bitte ein Passwort angeben';
-        $error = true;
-    }
-    elseif($passwort != $passwort2) {
-        $Message = 'Die Passwörter müssen übereinstimmen';
-        $error = true;
-    }
-
 
     //Keine Fehler, wir können den Nutzer registrieren
     if(!$error) {
@@ -113,10 +112,10 @@ if(isset($_GET['register'])) {
         Vorname:<br>
         <input type="text" size="40" maxlength="25" name="vorname" value="<?php echo isset($_POST['vorname']) ? $_POST['vorname'] : '' ?>" ><br>
         Nachname:<br>
-        <input type="text" size="40" maxlength="25" name="nachname" value="<?php echo isset($_POST['nachname']) ? $_POST['nachname'] : '' ?>" ><br><br>
+        <input type="text" size="40" maxlength="25" name="nachname" value="<?php echo isset($_POST['nachname']) ? $_POST['nachname'] : '' ?>"><br><br>
 
         E-Mail:<br>
-        <input type="email" size="40" maxlength="250" name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : '' ?>" ><br><br>
+        <input type="email" size="40" maxlength="250" name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : '' ?>"><br><br>
 
         Dein Passwort:<br>
         <input type="password" size="40"  maxlength="25" name="passwort"><br>
