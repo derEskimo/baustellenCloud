@@ -1,11 +1,31 @@
 <?php
+include('settings.conf'); //import Data for mySQL DB
 session_start();
+
+
 if(!isset($_SESSION['userid'])) {
     die('Bitte zuerst <a href="index.php">einloggen</a>');
 }
 
+//log in to mysql
+try {
+    $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+    // set the PDO error mode to exception
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    echo '<script>console.log("Connected successfully to DB: ' . $database . '")</script>';
+} catch (PDOException $e) {
+    echo '<script>console.log("Connection to DB failed: ' . $e->getMessage() . '")</script>';
+}
+
 //Abfrage der Nutzer ID vom Login
 $userid = $_SESSION['userid'];
+
+$statement = $pdo->prepare("SELECT vorname,nachname FROM users WHERE user_id = :userid");
+$result = $statement->execute(array('userid' => $userid));
+$user = $statement->fetch();
+$vorname = $user['vorname'];
+$nachname = $user['nachname'];
+
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +41,14 @@ $userid = $_SESSION['userid'];
 
 <left>
     <img src="media/Profilbild.png" style="width: 8vw"/>
-    <div>Hallo User <?php echo $userid; ?></div>
+
+    <div style="padding-top: 2vh">Hallo <?php echo $vorname." ".$nachname; ?></div>
+
+    <form action="?add=1" method="post" style="padding-top: 4vh">
+        Baustelle hinzufügen:
+        <input type="text" name="baustellen_name" style="width: 14vw"/>
+        <button><img src="media/addBaustelle.svg"/></button>
+    </form>
 
     <div class="baustellenSelect">
         <select size="40">
@@ -60,6 +87,11 @@ $userid = $_SESSION['userid'];
                 <option>Baustelle 3Ende</option>
             </select>
     </div>
+
+    <form action="?remove=1" method="post" style="padding-top: 2vh">
+        Ausgewählte Baustelle löschen<br>
+        <button><img src="media/deleteBaustelle.svg"/></button>
+    </form>
 </left>
 
 <right>
