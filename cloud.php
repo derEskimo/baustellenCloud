@@ -3,7 +3,7 @@ include('settings.conf'); //import Data for mySQL DB
 session_start();
 
 
-if(!isset($_SESSION['userid'])) {
+if (!isset($_SESSION['userid'])) {
     die('Bitte zuerst <a href="index.php">einloggen</a>');
 }
 
@@ -26,6 +26,27 @@ $user = $statement->fetch();
 $vorname = $user['vorname'];
 $nachname = $user['nachname'];
 
+$statement = $pdo->prepare("SELECT baustellen_Name FROM baustellen WHERE user_id = :userid");
+$result = $statement->execute(array('userid' => $userid));
+$baustellenSelectData = $statement->fetchAll();
+
+if (isset($_GET['add'])) {
+    $baustellenName = $_POST['baustellen_name'];
+    if (!empty($baustellenName)) {
+        $statement = $pdo->prepare("INSERT INTO baustellen (user_id, baustellen_name) VALUES (:userid, :baustellenName);");
+        $statement->execute(array('userid' => $userid, 'baustellenName' => $baustellenName));
+        header('Location: cloud.php');
+    }
+}
+
+if (isset($_GET['remove'])) {
+    $baustellenAuswahl = $_POST['baustellen_auswahl'];
+    if (!empty($baustellenAuswahl)) {
+        $statement = $pdo->prepare("DELETE FROM baustellen WHERE baustellen_Name = :baustellenName");
+        $statement->execute(array('baustellenName' => $baustellenAuswahl));
+        header('Location: cloud.php');
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -42,7 +63,7 @@ $nachname = $user['nachname'];
 <left>
     <img src="media/Profilbild.png" style="width: 8vw"/>
 
-    <div style="padding-top: 2vh">Hallo <?php echo $vorname." ".$nachname; ?></div>
+    <div style="padding-top: 2vh">Hallo <?php echo $vorname . " " . $nachname; ?></div>
 
     <form action="?add=1" method="post" style="padding-top: 4vh">
         Baustelle hinzufügen:
@@ -50,45 +71,14 @@ $nachname = $user['nachname'];
         <button><img src="media/addBaustelle.svg"/></button>
     </form>
 
-    <div class="baustellenSelect">
-        <select size="40">
-                <option>Baustelle 1Hallo</option>
-                <option>Baustelle 2</option>
-                <option>Baustelle 3</option>
-                <option>Baustelle 1</option>
-                <option>Baustelle 2</option>
-                <option>Baustelle 3</option>
-                <option>Baustelle 1</option>
-                <option>Baustelle 2</option>
-                <option>Baustelle 3</option>
-                <option>Baustelle 1</option>
-                <option>Baustelle 2</option>
-                <option>Baustelle 3</option>
-                <option>Baustelle 1</option>
-                <option>Baustelle 2</option>
-                <option>Baustelle 3</option>
-                <option>Baustelle 1</option>
-                <option>Baustelle 2</option>
-                <option>Baustelle 3</option>
-                <option>Baustelle 1asdaaaaaaaaadsasdsdaasdadssdadsd</option>
-                <option>Baustelle 2</option>
-                <option>Baustelle 3</option>
-                <option>Baustelle 1</option>
-                <option>Baustelle 2</option>
-                <option>Baustelle 3</option>
-                <option>Baustelle 1</option>
-                <option>Baustelle 2</option>
-                <option>Baustelle 3</option>
-                <option>Baustelle 1</option>
-                <option>Baustelle 2</option>
-                <option>Baustelle 3</option>
-                <option>Baustelle 1</option>
-                <option>Baustelle 2</option>
-                <option>Baustelle 3Ende</option>
-            </select>
-    </div>
-
-    <form action="?remove=1" method="post" style="padding-top: 2vh">
+    <form action="?remove=1" method="post">
+        <select size="30" name="baustellen_auswahl" style="width: 14vw">
+            <?php
+            for ($i = 0; $i < count($baustellenSelectData); $i++) {
+                echo '<option value="' . $baustellenSelectData[$i]["baustellen_Name"] . '">' . $baustellenSelectData[$i]["baustellen_Name"] . '</option>';
+            }
+            ?>
+        </select><br>
         Ausgewählte Baustelle löschen<br>
         <button><img src="media/deleteBaustelle.svg"/></button>
     </form>
@@ -110,14 +100,14 @@ $nachname = $user['nachname'];
     <content>
         <button class="addShare"><img src="media/unlock.svg"></button>
 
-                <form action="upload.php" method="post" enctype="multipart/form-data">
-                    <label class="addFile">
-                        <img src="media/uploadFile.svg" style="   position:absolute; top: 18px; left: 18px;">
-                        <input type="file" name="fileToUpload" id="fileToUpload" onchange="form.submit()"/>
-                    </label>
-                </form>
+        <form action="upload.php" method="post" enctype="multipart/form-data">
+            <label class="addFile">
+                <img src="media/uploadFile.svg" style="   position:absolute; top: 18px; left: 18px;">
+                <input type="file" name="fileToUpload" id="fileToUpload" onchange="form.submit()"/>
+            </label>
+        </form>
 
     </content>
-        </right>
+</right>
 
-        </body>
+</body>
