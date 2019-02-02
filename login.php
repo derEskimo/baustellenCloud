@@ -1,3 +1,4 @@
+<!--Settings conf and php-installl and apache-mysql needed!!!-->
 <?php
 include('settings.conf'); //import Data for mySQL DB
 
