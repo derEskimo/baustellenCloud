@@ -25,7 +25,7 @@ if (isset($_GET['login'])) {
 
     //Überprüfung des Passworts
     if ($user !== false && password_verify($passwort, $user['passwort'])) {
-        $_SESSION['userid'] = $user['id'];
+        $_SESSION['userid'] = $user['user_id'];
         header( 'Location: cloud.php' );
     } else {
         $errorMessage = "E-Mail oder Passwort war ungültig<br>";
