@@ -100,6 +100,8 @@ if (isset($_GET['remove'])) {
     <content>
         <button class="addShare"><img src="media/unlock.svg"></button>
 
+        <button class="downloadFile"><img src="media/downloadFile.svg"></button>
+
         <form action="upload.php" method="post" enctype="multipart/form-data">
             <label class="addFile">
                 <img src="media/uploadFile.svg" style="   position:absolute; top: 18px; left: 18px;">

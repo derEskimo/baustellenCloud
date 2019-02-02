@@ -74,3 +74,14 @@ input[type="file"] {
     background-color: rgba(244, 183, 13, 0.92);
     border: none;
 }
+
+.downloadFile{
+    position: absolute;
+    bottom: 7vh;
+    right: 13vw;
+    height: 60px;
+    width: 60px;
+    border-radius: 15px;
+    background-color: rgba(244, 183, 13, 0.92);
+    border: none;
+}
