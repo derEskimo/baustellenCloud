@@ -76,14 +76,16 @@ $userid = $_SESSION['userid'];
     </menue>
 
     <content>
-        <h1>London</h1>
-        <p>London is the capital city of England. It is the most populous city in the United Kingdom, with a
-            metropolitan area of over 13 million inhabitants.</p>
-        <p>Standing on the River Thames, London has been a major settlement for two millennia, its history going back to
-            its founding by the Romans, who named it Londinium.</p>
         <button class="addShare"><img src="media/unlock.svg"></button>
-        <button class="addFile"><img src="media/uploadFile.svg"></button>
-    </content>
-</right>
 
-</body>
+                <form action="upload.php" method="post" enctype="multipart/form-data">
+                    <label class="addFile">
+                        <img src="media/uploadFile.svg" style="   position:absolute; top: 18px; left: 18px;">
+                        <input type="file" name="fileToUpload" id="fileToUpload" onchange="form.submit()"/>
+                    </label>
+                </form>
+
+    </content>
+        </right>
+
+        </body>

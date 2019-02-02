@@ -43,11 +43,12 @@ content {
 }
 
 
-
 .baustellenSelect{
     height: 50vh;
     overflow: scroll;
 }
+
+
 
 .addFile {
     position: absolute;
@@ -58,6 +59,9 @@ content {
     border-radius: 15px;
     background-color: rgba(244, 183, 13, 0.92);
     border: none;
+}
+input[type="file"] {
+    display: none;
 }
 
 .addShare{
