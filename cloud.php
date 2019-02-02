@@ -86,6 +86,9 @@ if (isset($_GET['remove'])) {
 
 <right>
     <menue>
+        <form action="help.php" method="post">
+            <button><img src="media/help.svg"/></button>
+        </form>
         <form action="info.php" method="post">
             <button><img src="media/info.svg"/></button>
         </form>
