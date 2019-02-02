@@ -98,7 +98,7 @@ if(isset($_GET['register'])) {
         $result = $statement->execute(array('email' => $email, 'passwort' => $passwort_hash, 'vorname' => $vorname, 'nachname' => $nachname));
 
         if($result) {
-            $Message = 'Du wurdest erfolgreich registriert. <a href="login.php">Zum Login</a>';
+            $Message = 'Du wurdest erfolgreich registriert. <a href="index.php">Zum Login</a>';
             $showFormular = false;
         } else {
             $Message = 'Beim Abspeichern ist leider ein Fehler aufgetreten';
