@@ -1,4 +1,4 @@
-<!--Pay attention to permission of uploads Folder!!!-->
+<!--Pay attention to permission of uploads Folder!!! and post_max_size=0 in php.ini-->
 <?php
 $target_dir = "uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
