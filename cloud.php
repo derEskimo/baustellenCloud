@@ -19,6 +19,7 @@ try {
 
 //Abfrage der Nutzer ID vom Login
 $userid = $_SESSION['userid'];
+$baustellenAuswahl = $_SESSION['baustellenAuswahl'];
 
 $statement = $pdo->prepare("SELECT vorname,nachname FROM users WHERE user_id = :userid");
 $result = $statement->execute(array('userid' => $userid));
@@ -35,17 +36,20 @@ if (isset($_GET['add'])) {
     if (!empty($baustellenName)) {
         $statement = $pdo->prepare("INSERT INTO baustellen (user_id, baustellen_name) VALUES (:userid, :baustellenName);");
         $statement->execute(array('userid' => $userid, 'baustellenName' => $baustellenName));
-        header('Location: cloud.php');
     }
+    header('Location: cloud.php');
+}
+if (isset($_GET['select'])) {
+    $_SESSION["baustellenAuswahl"] = $_POST['baustellen_auswahl'];
+    header('Location: cloud.php');
 }
 
 if (isset($_GET['remove'])) {
-    $baustellenAuswahl = $_POST['baustellen_auswahl'];
     if (!empty($baustellenAuswahl)) {
         $statement = $pdo->prepare("DELETE FROM baustellen WHERE baustellen_Name = :baustellenName");
         $statement->execute(array('baustellenName' => $baustellenAuswahl));
-        header('Location: cloud.php');
     }
+    header('Location: cloud.php');
 }
 ?>
 
@@ -68,46 +72,52 @@ if (isset($_GET['remove'])) {
     <form action="?add=1" method="post" style="padding-top: 4vh">
         Baustelle hinzufügen:
         <input type="text" name="baustellen_name" style="width: 14vw"/>
-        <button><img src="media/addBaustelle.svg"/></button>
+        <button><img src="media/material.io/addBaustelle.svg"/></button>
     </form>
 
-    <form action="?remove=1" method="post">
-        <select size="30" name="baustellen_auswahl" style="width: 14vw">
+    <form action="?select=1" method="post">
+        <select size="30" name="baustellen_auswahl" style="width: 14vw" onchange="this.form.submit();">
             <?php
             for ($i = 0; $i < count($baustellenSelectData); $i++) {
-                echo '<option value="' . $baustellenSelectData[$i]["baustellen_Name"] . '">' . $baustellenSelectData[$i]["baustellen_Name"] . '</option>';
+                if ($baustellenSelectData[$i]["baustellen_Name"]== $baustellenAuswahl){
+                    echo '<option selected>'.$baustellenSelectData[$i]["baustellen_Name"].'</option>';}
+                else {
+                    echo '<option>'.$baustellenSelectData[$i]["baustellen_Name"].'</option>';}
             }
             ?>
         </select><br>
+    </form>
+
+    <form action="?remove=1" method="post">
         Ausgewählte Baustelle löschen<br>
-        <button><img src="media/deleteBaustelle.svg"/></button>
+        <button><img src="media/material.io/deleteBaustelle.svg"/></button>
     </form>
 </left>
 
 <right>
     <menue>
         <form action="help.php" method="post">
-            <button><img src="media/help.svg"/></button>
+            <button><img src="media/material.io/help.svg"/></button>
         </form>
         <form action="info.php" method="post">
-            <button><img src="media/info.svg"/></button>
+            <button><img src="media/material.io/info.svg"/></button>
         </form>
         <form>
-            <button><img src="media/settings.svg"/></button>
+            <button><img src="media/material.io/settings.svg"/></button>
         </form>
         <form action="logout.php" method="post">
-            <button><img src="media/logout.svg"/></button>
+            <button><img src="media/material.io/logout.svg"/></button>
         </form>
     </menue>
 
     <content>
-        <button class="addShare"><img src="media/unlock.svg"></button>
+        <button class="addShare"><img src="media/material.io/unlock.svg"></button>
 
-        <button class="downloadFile"><img src="media/downloadFile.svg"></button>
+        <button class="downloadFile"><img src="media/material.io/downloadFile.svg"></button>
 
-        <form action="upload.php" method="post" enctype="multipart/form-data">
+        <form action="upload.php?bau=<?=$baustellenAuswahl?>" method="post" enctype="multipart/form-data">
             <label class="addFile">
-                <img src="media/uploadFile.svg" style="   position:absolute; top: 18px; left: 18px;">
+                <img src="media/material.io/uploadFile.svg" style="   position:absolute; top: 18px; left: 18px;">
                 <input type="file" name="fileToUpload" id="fileToUpload" onchange="form.submit()"/>
             </label>
         </form>
