@@ -19,19 +19,23 @@ try {
 
 
 $baustellenAuswahl = $_GET["bau"];
-$statement = $pdo->prepare("SELECT bau_id FROM baustellen WHERE baustellen_Name = :baustellenName");
+$statement = $pdo->prepare("SELECT bau_id, user_id FROM baustellen WHERE baustellen_Name = :baustellenName");
 $result = $statement->execute(array('baustellenName' => $baustellenAuswahl));
-$bau_ID = ($statement->fetch())[0];
-$target_dir = "uploads/";
-$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+$res = $statement->fetchall();
+$bau_id = $res[0]["bau_id"];
+$user_id = $res[0]["user_id"];
+
+
+$target = 'uploads/'.$user_id.'/'.$bau_id.'/';
+$res = mkdir ($target ,0777 , true);
+$target_file = $target.basename($_FILES["fileToUpload"]["name"]);
 
 if ($_FILES["fileToUpload"]["size"] > 50000000) {
     echo "Sorry, your file is too large.";
 } else {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
         $statement = $pdo->prepare("INSERT INTO files (bau_id, path) VALUES (:bauid, :filePath);");
-        $statement->execute(array('bauid' => $bau_ID, 'filePath' => $target_file));
+        $statement->execute(array('bauid' => $bau_id, 'filePath' => $target_file));
         header('Location: cloud.php');
     } else {
         echo "Sorry, there was an error uploading your file.";
