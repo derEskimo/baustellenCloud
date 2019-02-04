@@ -28,17 +28,18 @@ $user_id = $res[0]["user_id"];
 
 $target = 'uploads/'.$user_id.'/'.$bau_id.'/';
 $res = mkdir ($target ,0777 , true);
-$target_file = $target.basename($_FILES["fileToUpload"]["name"]);
 
-if ($_FILES["fileToUpload"]["size"] > 50000000) {
-    echo "Sorry, your file is too large.";
-} else {
-    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-        $statement = $pdo->prepare("INSERT INTO files (bau_id, path) VALUES (:bauid, :filePath);");
-        $statement->execute(array('bauid' => $bau_id, 'filePath' => $target_file));
+$counter = 0;
+foreach ($_FILES["fileToUpload"]["name"] as $filename){
+    echo print($_FILES["fileToUpload"]);
+    $target_file = $target.basename($filename);
+    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"][$counter], $target_file)) {
+        $statement = $pdo->prepare("INSERT INTO files (bau_id, path, type, size) VALUES (:bauid, :filePath, :typ, :size);");
+        $statement->execute(array('bauid' => $bau_id, 'filePath' => $target_file, 'typ' => $_FILES["fileToUpload"]["type"][$counter], 'size' => $_FILES["fileToUpload"]["size"][$counter]));
         header('Location: cloud.php');
     } else {
-        echo "Sorry, there was an error uploading your file.";
+        echo "Sorry, there was an error uploading one of your files.";
     }
+    $counter +=1;
 }
 ?>

@@ -130,7 +130,7 @@ if (isset($_GET['remove'])) {
         <form action="upload.php?bau=<?=$baustellenAuswahl?>" method="post" enctype="multipart/form-data">
             <label class="addFile">
                 <img src="media/material.io/uploadFile.svg" style="   position:absolute; top: 18px; left: 18px;">
-                <input type="file" name="fileToUpload" id="fileToUpload" onchange="form.submit()"/>
+                <input type="file" name="fileToUpload[]" multiple id="fileToUpload" onchange="form.submit()"/>
             </label>
         </form>
 
