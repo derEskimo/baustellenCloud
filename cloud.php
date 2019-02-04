@@ -111,6 +111,18 @@ if (isset($_GET['remove'])) {
     </menue>
 
     <content>
+        <div class="file-container">
+            <?php
+            $statement = $pdo->prepare("SELECT bau_id FROM baustellen WHERE baustellen_Name = :baustellenName");
+            $result = $statement->execute(array('baustellenName' => $baustellenAuswahl));
+            $bau_id = $statement->fetch()[0];
+            $directory = scandir ( 'uploads/'.$userid.'/'.$bau_id, SCANDIR_SORT_ASCENDING);
+
+            for ($i = 2; $i < count($directory); $i++) {
+                echo "<div>".$directory[$i]."</div>";
+            }
+            ?>
+        </div>
         <button class="addShare"><img src="media/material.io/unlock.svg"></button>
 
         <button class="downloadFile"><img src="media/material.io/downloadFile.svg"></button>
