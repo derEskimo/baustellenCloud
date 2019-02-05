@@ -60,6 +60,7 @@ if (isset($_GET['remove'])) {
     <title>baustellenCloud</title>
     <link rel="shortcut icon" type="image/x-icon" href="media/favicon.ico">
     <link rel="stylesheet" type="text/css" href="cloud.css">
+    <link rel="stylesheet" href="file-icon-square-o.css" />
 </head>
 
 <body>
@@ -119,7 +120,10 @@ if (isset($_GET['remove'])) {
             $directory = scandir ( 'uploads/'.$userid.'/'.$bau_id, SCANDIR_SORT_ASCENDING);
 
             for ($i = 2; $i < count($directory); $i++) {
-                echo "<div>".$directory[$i]."</div>";
+                echo    "<div>
+                            <span class='fiv-sqo fiv-icon-".end(explode(".",$directory[$i]))." fiv-size-xl'></span><br>" //add icon
+                            .$directory[$i].
+                        "</div>";
             }
             ?>
         </div>
